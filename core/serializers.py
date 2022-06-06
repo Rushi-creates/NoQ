@@ -12,6 +12,18 @@ class MemberProfileSerializer(ModelSerializer):
         fields = '__all__'
         # fields = [ 'id' , 'bio' , 'userName' , 'uid']
 
+
+class QueueSerializer(ModelSerializer):
+    class Meta : 
+        model = Queue
+        fields = '__all__'
+
+class QueueUserSerializer(ModelSerializer):
+    class Meta : 
+        model = QueueUser
+        fields = '__all__'
+
+
 # class GymTrackSerializer(ModelSerializer):
 #     class Meta:
 #         model = GymTrack

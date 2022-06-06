@@ -27,6 +27,23 @@ class MemberProfile(models.Model):
     m_uid = models.OneToOneField(AuthUser , on_delete=models.CASCADE, related_name='muid', primary_key=True) # uid setted as pk
 
 
+#! just a normal db table
+class Queue(models.Model):
+    acc_uid = models.ForeignKey(AuthUser , on_delete=models.CASCADE, related_name='acc_uid') # filter search by ui
+    name = models.CharField(max_length=80)
+    description = models.CharField(max_length=80)
+    isOpen = models.BooleanField(default=False)  # bool to open/close queues on holidays etc
+
+
+#! using filter method , coz one account can have multiple objects of this class
+class QueueUser(models.Model):
+    q_uid = models.ForeignKey(Queue , on_delete=models.CASCADE, related_name='quid') # filter search by ui
+    acc_uid = models.ForeignKey(AuthUser , on_delete=models.CASCADE, related_name='accc_uid') # filter search by ui
+    recordTime = models.CharField(max_length=20)   # filter search, of time when user was added to queue
+    qrCode_id = models.IntegerField(default=0)
+
+
+
 # #! using filter method , coz one account can have multiple objects of this class
 # class GymTrack(models.Model):
 #     g_uid = models.ForeignKey(AuthUser , on_delete=models.CASCADE, related_name='guid') # filter search by ui

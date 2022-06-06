@@ -1,8 +1,8 @@
 #from appNameFolder.fileName import func/className
-from core.models import  AuthUser, MemberProfile
+from core.models import  AuthUser, MemberProfile , Queue,QueueUser
 from core.myPaginations import MyCustomPagination
-from core.serializers import  AuthUserSerializer,MemberProfileSerializer
-from .filters import AccountFilters
+from core.serializers import  AuthUserSerializer,MemberProfileSerializer,QueueSerializer,QueueUserSerializer
+from .filters import AccountFilters,QueueUserFilters , QueueFilters
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -177,6 +177,133 @@ def deleteMemberProfile(request,id):
 #     userObj = MemberProfile.objects.get(m_uid=uid)  #! just changed uid here 
 #     userObj.delete()
 #     return Response(f"Deleted by uid {uid}")
+
+
+
+# ---------------------------------------------------------------------------- #
+#                                //! Queue                                     #
+# ---------------------------------------------------------------------------- #
+@api_view(['POST'])
+def addQueue(request):
+    userObj = QueueSerializer(data=request.data)
+    if userObj.is_valid():
+        print('valid')
+        userObj.save()
+    print(userObj.data)
+    return Response(userObj.data)
+
+# @api_view(['GET'])
+# def getQueue(request):
+#     userObj = Queue.objects.all()
+#     serializer = QueueSerializer(userObj,many=True)
+#     return Response(serializer.data)
+
+# filter , ( to filter with recordData field )
+@api_view(['GET'])
+def getQueue(request):
+    paginator = MyCustomPagination()
+    userObj = Queue.objects.all()
+    filteredData = QueueFilters(request.GET, queryset = userObj).qs # gives filter search options from filters.py
+    try :
+        context = paginator.paginate_queryset(filteredData, request)
+        serializer = QueueSerializer(context,many=True)
+        return Response(serializer.data)
+    except:
+        return Response([])
+
+
+@api_view(['GET'])
+def getSingleQueue(request,id):
+    userObj = Queue.objects.get(id=id)
+    serializer = QueueSerializer(instance=userObj)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def updateQueue(request,id):
+    userObj = Queue.objects.get(id=id)
+    serializers = QueueSerializer(instance=userObj, data=request.data)
+    if serializers.is_valid():
+        serializers.save()
+    return Response(serializers.data)
+
+@api_view(['DELETE' , 'GET'])
+def deleteQueue(request,id):
+    userObj = Queue.objects.get(id=id)  #! make sure to chaneg id , to g_uid here
+    userObj.delete()
+    return Response(f"Deleted {id}")
+
+
+# dont need this here , as uid and id are the same 
+@api_view(['DELETE' , 'GET'])
+def deleteQueueByUid(request,uid):
+    userObj = Queue.objects.get(g_uid=uid)  #! just changed uid here 
+    userObj.delete()
+    return Response(f"Deleted by uid {uid}")
+
+
+
+
+# ---------------------------------------------------------------------------- #
+#                                //! QueueUser                                 #
+# ---------------------------------------------------------------------------- #
+@api_view(['POST'])
+def addQueueUser(request):
+    userObj = QueueUserSerializer(data=request.data)
+    if userObj.is_valid():
+        print('valid')
+        userObj.save()
+    print(userObj.data)
+    return Response(userObj.data)
+
+# @api_view(['GET'])
+# def getQueueUser(request):
+#     userObj = QueueUser.objects.all()
+#     serializer = QueueUserSerializer(userObj,many=True)
+#     return Response(serializer.data)
+
+# filter , ( to filter with recordData field )
+@api_view(['GET'])
+def getQueueUser(request):
+    paginator = MyCustomPagination()
+    userObj = QueueUser.objects.all()
+    filteredData = QueueUserFilters(request.GET, queryset = userObj).qs # gives filter search options from filters.py
+    try :
+        context = paginator.paginate_queryset(filteredData, request)
+        serializer = QueueUserSerializer(context,many=True)
+        return Response(serializer.data)
+    except:
+        return Response([])
+
+
+@api_view(['GET'])
+def getSingleQueueUser(request,id):
+    userObj = QueueUser.objects.get(id=id)
+    serializer = QueueUserSerializer(instance=userObj)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def updateQueueUser(request,id):
+    userObj = QueueUser.objects.get(id=id)
+    serializers = QueueUserSerializer(instance=userObj, data=request.data)
+    if serializers.is_valid():
+        serializers.save()
+    return Response(serializers.data)
+
+@api_view(['DELETE' , 'GET'])
+def deleteQueueUser(request,id):
+    userObj = QueueUser.objects.get(id=id)  #! make sure to chaneg id , to g_uid here
+    userObj.delete()
+    return Response(f"Deleted {id}")
+
+
+# dont need this here , as uid and id are the same 
+@api_view(['DELETE' , 'GET'])
+def deleteQueueUserByUid(request,uid):
+    userObj = QueueUser.objects.get(g_uid=uid)  #! just changed uid here 
+    userObj.delete()
+    return Response(f"Deleted by uid {uid}")
+
+
 
 
 # # ---------------------------------------------------------------------------- #

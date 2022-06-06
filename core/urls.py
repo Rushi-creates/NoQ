@@ -22,14 +22,26 @@ urlpatterns = [
     path('memberProfile/add/', views.addMemberProfile),
     path('memberProfile/update/<int:id>/', views.updateMemberProfile),
     path('memberProfile/delete/<int:id>/', views.deleteMemberProfile),
+
+
    
-#     #! GYM TRACK  paths ( here uid prop id setted as Foreign key)
-#     path('gymTrack/', views.getGymTrack),
-#     path('gymTrack/<int:id>/', views.getSingleGymTrack),
-#     path('gymTrack/add/', views.addGymTrack),
-#     path('gymTrack/update/<int:id>/', views.updateGymTrack),
-#     path('gymTrack/delete/<int:id>/', views.deleteGymTrack),
-#     path('gymTrack/deleteByUid/<int:uid>/', views.deleteGymTrackByUid), # delete by uid ( dont need now as uid=id)
+    #! GYM TRACK  paths ( here uid prop id setted as Foreign key)
+    path('queue/', views.getQueue),
+    path('queue/<int:id>/', views.getSingleQueue),
+    path('queue/add/', views.addQueue),
+    path('queue/update/<int:id>/', views.updateQueue),
+    path('queue/delete/<int:id>/', views.deleteQueue),
+    path('queue/deleteByUid/<int:uid>/', views.deleteQueueByUid), # delete by uid ( dont need now as uid=id)
+    
+    
+    #! GYM TRACK  paths ( here uid prop id setted as Foreign key)
+    path('queueUser/', views.getQueueUser),
+    path('queueUser/<int:id>/', views.getSingleQueueUser),
+    path('queueUser/add/', views.addQueueUser),
+    path('queueUser/update/<int:id>/', views.updateQueueUser),
+    path('queueUser/delete/<int:id>/', views.deleteQueueUser),
+    path('queueUser/deleteByUid/<int:uid>/', views.deleteQueueUserByUid), # delete by uid ( dont need now as uid=id)
+
 
 #     #! ATTENDANCE  paths ( here uid prop id setted as Foreign key)
 #     path('attendance/', views.getAttendance),
@@ -40,6 +52,11 @@ urlpatterns = [
 #     path('attendance/deleteByUid/<int:uid>/', views.deleteAttendanceByUid), # delete by uid ( dont need now as uid=id)
 
 ]
+
+
+
+
+
 
 
 

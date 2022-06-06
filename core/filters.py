@@ -6,6 +6,17 @@ class AccountFilters(django_filters.FilterSet):
         model = AuthUser
         fields = '__all__'
 
+class QueueFilters(django_filters.FilterSet):
+    class Meta: 
+        model = Queue
+        fields = '__all__'
+
+class QueueUserFilters(django_filters.FilterSet):
+    class Meta: 
+        model = QueueUser
+        fields = '__all__'
+
+
 # class GymTrackFilters(django_filters.FilterSet):
 #     class Meta: 
 #         model = GymTrack
