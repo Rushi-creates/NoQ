@@ -28,7 +28,7 @@ class AuthUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AuthUser
-        fields = [ 'id','email','password','isAdminVerified','authUser_in_queueUser_uid','authUser_in_queue_uid']
+        fields = [ 'id','email','password','isAdmin','isAdminVerified','authUser_in_queueUser_uid','authUser_in_queue_uid']
         # fields = '__all__'
 
 
