@@ -7,6 +7,9 @@ class AuthUser(models.Model):
     isAdmin = models.BooleanField(default=False)
     isAdminVerified = models.BooleanField(default=False) # to turn to true by superAdmin
 
+    class Meta:
+        ordering = ['id']
+
 #! using OneToOneField , coz one account can have only profile ( user can create one rowObj of this class )
 class MemberProfile(models.Model):
     name = models.CharField(max_length=40,default="no value")
@@ -29,19 +32,26 @@ class MemberProfile(models.Model):
 
 #! just a normal db table
 class Queue(models.Model):
-    acc_uid = models.ForeignKey(AuthUser , on_delete=models.CASCADE, related_name='acc_uid') # filter search by ui
+    acc_uid = models.ForeignKey(AuthUser,blank=True, null=True, on_delete=models.CASCADE,related_name='authUser_in_queue_uid') # filter search by ui
+    # acc_uid = models.ForeignKey(AuthUser,blank=True,default=0, on_delete=models.CASCADE, related_name='authUser_in_queue_uid') # filter search by ui
     name = models.CharField(max_length=80)
     description = models.CharField(max_length=80)
     isOpen = models.BooleanField(default=False)  # bool to open/close queues on holidays etc
 
+    class Meta:
+        ordering = ['id']
 
 #! using filter method , coz one account can have multiple objects of this class
 class QueueUser(models.Model):
-    q_uid = models.ForeignKey(Queue , on_delete=models.CASCADE, related_name='quid') # filter search by ui
-    acc_uid = models.ForeignKey(AuthUser , on_delete=models.CASCADE, related_name='accc_uid') # filter search by ui
+    # q_uid = models.ForeignKey(Queue ,blank=True,default=0, on_delete=models.CASCADE, related_name='queue_in_queueUser_uid') # filter search by ui
+    # acc_uid = models.ForeignKey(AuthUser ,blank=True,default=0, on_delete=models.CASCADE, related_name='authUser_in_queueUser_uid') # filter search by ui
+    q_uid = models.ForeignKey(Queue,blank=True, null=True, on_delete=models.CASCADE, related_name='queue_in_queueUser_uid') 
+    acc_uid = models.ForeignKey(AuthUser,blank=True, null=True,on_delete=models.CASCADE, related_name='authUser_in_queueUser_uid') 
     recordTime = models.CharField(max_length=20)   # filter search, of time when user was added to queue
     qrCode_id = models.IntegerField(default=0)
 
+    class Meta:
+        ordering = ['id']
 
 
 # #! using filter method , coz one account can have multiple objects of this class
@@ -67,5 +77,7 @@ class QueueUser(models.Model):
 #     a_uid = models.ForeignKey(AuthUser , on_delete=models.CASCADE, related_name='auid') # filter search by ui
 #     recordDate = models.CharField(max_length=20)   # filter search , by date to separate monthly track
 #     profileName = models.CharField(max_length=40, default='no name')
+
+
 
 

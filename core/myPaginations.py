@@ -6,5 +6,6 @@ class MyCustomPagination(PageNumberPagination):
     #!( but if we have commented above line, we have COMPULSORY pass ?records=7 in URL)
     page_query_param='pagenum'  # to serach from link use this ?page=2
     page_size_query_param = 'pagesize'
+    ordering = 'id'
     # last_page_strings='end'    #! to fetch last page of paginations
 
