@@ -43,10 +43,10 @@ class Queue(models.Model):
 
 #! using filter method , coz one account can have multiple objects of this class
 class QueueUser(models.Model):
-    # q_uid = models.ForeignKey(Queue ,blank=True,default=0, on_delete=models.CASCADE, related_name='queue_in_queueUser_uid') # filter search by ui
-    # acc_uid = models.ForeignKey(AuthUser ,blank=True,default=0, on_delete=models.CASCADE, related_name='authUser_in_queueUser_uid') # filter search by ui
     q_uid = models.ForeignKey(Queue,blank=True, null=True, on_delete=models.CASCADE, related_name='queue_in_queueUser_uid') 
     acc_uid = models.ForeignKey(AuthUser,blank=True, null=True,on_delete=models.CASCADE, related_name='authUser_in_queueUser_uid') 
+    q_name = models.CharField(max_length=80,default='no value')
+    acc_name = models.CharField(max_length=80,default='no value')
     recordTime = models.CharField(max_length=20)   # filter search, of time when user was added to queue
     qrCode_id = models.IntegerField(default=0)
 
