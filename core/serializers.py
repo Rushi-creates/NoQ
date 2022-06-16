@@ -17,7 +17,7 @@ class QueueSerializer(serializers.ModelSerializer):
 class QueueUserSerializer(serializers.ModelSerializer):
     class Meta : 
         model = QueueUser
-        fields = [ 'id','q_uid','q_name','acc_uid','acc_name','recordTime','qrCode_id']
+        fields = [ 'id','q_uid','q_name','acc_uid','acc_name','shop_name','recordTime','qrCode_id']
         fields = '__all__'
 
 

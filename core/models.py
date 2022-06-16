@@ -47,6 +47,7 @@ class QueueUser(models.Model):
     acc_uid = models.ForeignKey(AuthUser,blank=True, null=True,on_delete=models.CASCADE, related_name='authUser_in_queueUser_uid') 
     q_name = models.CharField(max_length=80,default='no value')
     acc_name = models.CharField(max_length=80,default='no value')
+    shop_name = models.CharField(max_length=80,default='no value')
     recordTime = models.CharField(max_length=20)   # filter search, of time when user was added to queue
     qrCode_id = models.IntegerField(default=0)
 
