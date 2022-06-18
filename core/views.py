@@ -272,7 +272,6 @@ def addQueueUser(request):
         
 
 
-
 # @api_view(['POST'])
 # def registerAccount(request):
 #     if request.method =='POST':
