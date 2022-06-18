@@ -246,14 +246,48 @@ def deleteQueueByUid(request,uid):
 # ---------------------------------------------------------------------------- #
 #                                //! QueueUser                                 #
 # ---------------------------------------------------------------------------- #
+# @api_view(['POST'])
+# def addQueueUser(request):
+#     userObj = QueueUserSerializer(data=request.data)
+#     if userObj.is_valid():
+#         print('valid')
+#         userObj.save()
+#     print(userObj.data)
+#     return Response(userObj.data)
+
 @api_view(['POST'])
 def addQueueUser(request):
-    userObj = QueueUserSerializer(data=request.data)
-    if userObj.is_valid():
-        print('valid')
-        userObj.save()
-    print(userObj.data)
-    return Response(userObj.data)
+    my_acc_uid = request.data.get('acc_uid')
+    my_q_uid = request.data.get('q_uid')
+
+    if QueueUser.objects.filter(acc_uid=my_acc_uid).exists() and QueueUser.objects.filter(q_uid=my_q_uid).exists() :
+        return Response(False)
+    else:
+        userObj = QueueUserSerializer(data=request.data)
+        if userObj.is_valid():
+            print('valid')
+            userObj.save()
+            print(userObj.data)
+        return Response(userObj.data)
+        
+
+
+
+# @api_view(['POST'])
+# def registerAccount(request):
+#     if request.method =='POST':
+#         #! using get() method of py dict(to access value, by using the key), and store it in var
+#         myemail =request.data.get('email')
+#         mypass = request.data.get('password')
+
+#         #! checking if account exists in DB
+#         if AuthUser.objects.filter(email=myemail).exists() and AuthUser.objects.filter(password= mypass).exists() :
+#             return Response(False)  # email and pass wrong
+#         else:
+#             userObj = AuthUserSerializer(data=request.data)
+#             if userObj.is_valid():
+#                 userObj.save()
+#             return Response(userObj.data)
 
 # @api_view(['GET'])
 # def getQueueUser(request):
