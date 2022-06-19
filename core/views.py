@@ -260,7 +260,8 @@ def addQueueUser(request):
     my_acc_uid = request.data.get('acc_uid')
     my_q_uid = request.data.get('q_uid')
 
-    if QueueUser.objects.filter(acc_uid=my_acc_uid).exists() and QueueUser.objects.filter(q_uid=my_q_uid).exists() :
+    # if QueueUser.objects.filter(acc_uid=my_acc_uid).exists() and QueueUser.objects.filter(q_uid=my_q_uid).exists() :
+    if QueueUser.objects.filter(acc_uid=my_acc_uid,q_uid=my_q_uid).exists() :
         return Response(False)
     else:
         userObj = QueueUserSerializer(data=request.data)
