@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import django_heroku
 import os
+import cloudinary_storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework', 
     'core.apps.CoreConfig',
     'django_filters',
+    'cloudinary' ,
+    'cloudinary_storage'
 ]
 
 
@@ -151,3 +154,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.BasicAuthentication'],
     'DEFAULT_PERMISSION_CLASSES' : [ 'rest_framework.permissions.IsAuthenticated' ] 
 }
+
+CLOUDINARY_STORAGE = { 
+    'CLOUD_NAME' : 'dwrsitobg',
+    'API_KEY' : '173266388846763',
+    'API_SECRET' :'pLn6K93SK6FzLxTEsDIIz_-4C4o'
+} 
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

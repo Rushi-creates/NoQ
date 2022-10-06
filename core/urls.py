@@ -23,6 +23,12 @@ urlpatterns = [
     path('memberProfile/update/<int:id>/', views.updateMemberProfile),
     path('memberProfile/delete/<int:id>/', views.deleteMemberProfile),
 
+    #! MEMBER PROFILE DATA paths ( here uid prop is setted as primary key)
+    path('profileImage/', views.getProfileImage),
+    path('profileImage/<int:id>/', views.getSingleProfileImage),
+    path('profileImage/add/', views.addProfileImage),
+    path('profileImage/update/<int:id>/', views.updateProfileImage),
+    path('profileImage/delete/<int:id>/', views.deleteProfileImage),
 
    
     #! GYM TRACK  paths ( here uid prop id setted as Foreign key)

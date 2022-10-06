@@ -1,7 +1,7 @@
 #from appNameFolder.fileName import func/className
-from core.models import  AuthUser, MemberProfile , Queue,QueueUser
+from core.models import  AuthUser, MemberProfile , Queue,QueueUser, ProfileImage
 from core.myPaginations import MyCustomPagination
-from core.serializers import  AuthUserSerializer,MemberProfileSerializer,QueueSerializer,QueueUserSerializer
+from core.serializers import  AuthUserSerializer,MemberProfileSerializer,QueueSerializer,QueueUserSerializer,ProfileImageSerializer
 from .filters import AccountFilters,QueueUserFilters , QueueFilters
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -336,6 +336,70 @@ def deleteQueueUserByUid(request,uid):
     userObj = QueueUser.objects.get(g_uid=uid)  #! just changed uid here 
     userObj.delete()
     return Response(f"Deleted by uid {uid}")
+
+
+
+
+# ---------------------------------------------------------------------------- #
+#                                //! ProfileImage                                     #
+# ---------------------------------------------------------------------------- #
+@api_view(['POST'])
+def addProfileImage(request):
+    userObj = ProfileImageSerializer(data=request.data)
+    if userObj.is_valid():
+        print('valid')
+        userObj.save()
+    print(userObj.data)
+    return Response(userObj.data)
+
+# @api_view(['GET'])
+# def getProfileImage(request):
+#     userObj = ProfileImage.objects.all()
+#     serializer = ProfileImageSerializer(userObj,many=True)
+#     return Response(serializer.data)
+
+# filter , ( to filter with recordData field )
+@api_view(['GET'])
+def getProfileImage(request):
+    paginator = MyCustomPagination()
+    userObj = ProfileImage.objects.all()
+    # filteredData = ProfileImageFilters(request.GET, queryset = userObj).qs # gives filter search options from filters.py
+    try :
+        context = paginator.paginate_queryset(userObj, request)
+        serializer = ProfileImageSerializer(context,many=True)
+        return Response(serializer.data)
+    except:
+        return Response([])
+
+
+@api_view(['GET'])
+def getSingleProfileImage(request,id):
+    userObj = ProfileImage.objects.get(id=id)
+    serializer = ProfileImageSerializer(instance=userObj)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def updateProfileImage(request,id):
+    userObj = ProfileImage.objects.get(id=id)
+    serializers = ProfileImageSerializer(instance=userObj, data=request.data)
+    if serializers.is_valid():
+        serializers.save()
+    return Response(serializers.data)
+
+@api_view(['DELETE' , 'GET'])
+def deleteProfileImage(request,id):
+    userObj = ProfileImage.objects.get(id=id)  #! make sure to chaneg id , to g_uid here
+    userObj.delete()
+    return Response(f"Deleted {id}")
+
+
+# dont need this here , as uid and id are the same 
+@api_view(['DELETE' , 'GET'])
+def deleteProfileImageByUid(request,uid):
+    userObj = ProfileImage.objects.get(g_uid=uid)  #! just changed uid here 
+    userObj.delete()
+    return Response(f"Deleted by uid {uid}")
+
 
 
 

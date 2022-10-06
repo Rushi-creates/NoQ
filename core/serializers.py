@@ -14,6 +14,11 @@ class QueueSerializer(serializers.ModelSerializer):
         model = Queue
         fields = '__all__'
 
+class ProfileImageSerializer(serializers.ModelSerializer):
+    class Meta : 
+        model = ProfileImage
+        fields = '__all__'
+
 class QueueUserSerializer(serializers.ModelSerializer):
     class Meta : 
         model = QueueUser

@@ -16,6 +16,11 @@ class QueueUserFilters(django_filters.FilterSet):
         model = QueueUser
         fields = '__all__'
 
+# class ProfileImageFilters(django_filters.FilterSet):
+#     class Meta: 
+#         model = ProfileImage
+#         fields = '__all__'
+
 
 # class GymTrackFilters(django_filters.FilterSet):
 #     class Meta: 

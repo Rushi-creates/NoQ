@@ -10,6 +10,12 @@ class AuthUser(models.Model):
     class Meta:
         ordering = ['id']
 
+class ProfileImage(models.Model):
+    user = models. ForeignKey(AuthUser, on_delete=models.CASCADE)
+    image = models. FileField(upload_to='profile_images') #cloudinary folder name here
+
+
+
 #! using OneToOneField , coz one account can have only profile ( user can create one rowObj of this class )
 class MemberProfile(models.Model):
     name = models.CharField(max_length=40,default="no value")
